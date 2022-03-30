@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import ru.zar1official.daggerfirstdemo.R
 import ru.zar1official.daggerfirstdemo.databinding.ActivityMainBinding
 import ru.zar1official.daggerfirstdemo.presentation.viewmodels.MainViewModel
-import ru.zar1official.daggerfirstdemo.util.appComponent
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.state.observe(this@MainActivity) { state ->
             supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container,
-                FirstFragment.newInstance()
+                if (!state) FirstFragment.newInstance() else SecondFragment.newInstance()
             ).commit()
         }
         setContentView(binding.root)
