@@ -46,6 +46,7 @@ class SecondFragment : Fragment() {
             viewModel.data.observe(viewLifecycleOwner) {
                 Toast.makeText(context, it, Toast.LENGTH_LONG).show()
             }
+            viewModel.data
         }
         return binding.root
     }

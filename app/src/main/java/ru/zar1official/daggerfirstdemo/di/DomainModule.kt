@@ -7,7 +7,7 @@ import ru.zar1official.daggerfirstdemo.domain.Repository
 import ru.zar1official.daggerfirstdemo.domain.SaveDataUseCase
 
 @Module
-class DomainModule {
+object DomainModule {
     @Provides
     fun provideReadDataUseCase(repository: Repository): ReadDataUseCase = ReadDataUseCase(repository = repository)
 
