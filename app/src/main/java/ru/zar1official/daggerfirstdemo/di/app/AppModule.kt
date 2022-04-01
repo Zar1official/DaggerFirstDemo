@@ -1,8 +1,9 @@
-package ru.zar1official.daggerfirstdemo.di
+package ru.zar1official.daggerfirstdemo.di.app
 
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import ru.zar1official.daggerfirstdemo.di.app.FactoryModule
 import javax.inject.Singleton
 
 @Module(includes = [FactoryModule::class])

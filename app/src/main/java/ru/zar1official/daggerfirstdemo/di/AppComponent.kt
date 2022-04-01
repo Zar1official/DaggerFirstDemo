@@ -1,6 +1,9 @@
 package ru.zar1official.daggerfirstdemo.di
 
 import dagger.Component
+import ru.zar1official.daggerfirstdemo.di.app.AppModule
+import ru.zar1official.daggerfirstdemo.di.data.DataModule
+import ru.zar1official.daggerfirstdemo.di.domain.DomainModule
 import ru.zar1official.daggerfirstdemo.presentation.screens.FirstFragment
 import ru.zar1official.daggerfirstdemo.presentation.screens.MainActivity
 import ru.zar1official.daggerfirstdemo.presentation.screens.SecondFragment

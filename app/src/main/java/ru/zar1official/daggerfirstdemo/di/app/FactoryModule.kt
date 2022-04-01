@@ -1,4 +1,4 @@
-package ru.zar1official.daggerfirstdemo.di
+package ru.zar1official.daggerfirstdemo.di.app
 
 import dagger.Module
 import dagger.Provides
