@@ -4,11 +4,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import dagger.Module
 import dagger.Provides
-import ru.zar1official.daggerfirstdemo.data.RepositoryImpl
+import ru.zar1official.daggerfirstdemo.data.repositories.RepositoryImpl
 import ru.zar1official.daggerfirstdemo.domain.Repository
 import javax.inject.Singleton
 
-@Module(includes = [StorageModule::class])
+@Module(includes = [StorageModule::class, LoggerModule::class])
 object DataModule {
     @Singleton
     @Provides

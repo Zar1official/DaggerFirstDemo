@@ -1,7 +1,10 @@
 package ru.zar1official.daggerfirstdemo.presentation.screens
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import ru.zar1official.daggerfirstdemo.R
 import ru.zar1official.daggerfirstdemo.databinding.ActivityMainBinding
@@ -9,11 +12,7 @@ import ru.zar1official.daggerfirstdemo.presentation.viewmodels.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this
-        )[MainViewModel::class.java]
-    }
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,13 +21,19 @@ class MainActivity : AppCompatActivity() {
                 viewModel.onChangeFragment()
             }
         }
-        viewModel.state.observe(this@MainActivity) { state ->
-            supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container,
-                if (!state) FirstFragment.newInstance() else SecondFragment.newInstance()
-            ).commit()
+
+        changeScreen(fragment = FirstFragment.newInstance())
+
+        viewModel.currentFragment.observe(this@MainActivity) { fragment ->
+            changeScreen(fragment)
         }
         setContentView(binding.root)
+    }
+
+    fun changeScreen(fragment: Fragment) {
+        supportFragmentManager.commit {
+            replace(R.id.fragment_container, fragment)
+        }
     }
 
 }

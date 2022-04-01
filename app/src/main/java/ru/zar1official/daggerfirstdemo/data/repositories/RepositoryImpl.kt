@@ -1,4 +1,4 @@
-package ru.zar1official.daggerfirstdemo.data
+package ru.zar1official.daggerfirstdemo.data.repositories
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

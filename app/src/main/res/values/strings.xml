@@ -4,4 +4,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="change_fragment">Сменить</string>
     <string name="save_button">Сохранить</string>
+    <string name="get_button">Получить</string>
 </resources>

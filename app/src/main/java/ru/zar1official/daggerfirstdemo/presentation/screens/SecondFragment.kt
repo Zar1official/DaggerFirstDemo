@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import ru.zar1official.daggerfirstdemo.data.Logger
 import ru.zar1official.daggerfirstdemo.databinding.FragmentSecondBinding
 import ru.zar1official.daggerfirstdemo.presentation.factories.SecondFragmentViewModelFactory
 import ru.zar1official.daggerfirstdemo.presentation.viewmodels.SecondFragmentViewModel
 import ru.zar1official.daggerfirstdemo.util.appComponent
 import javax.inject.Inject
+import javax.inject.Named
 
 class SecondFragment : Fragment() {
     private val binding: FragmentSecondBinding get() = _binding!!
@@ -21,13 +24,12 @@ class SecondFragment : Fragment() {
         get() = binding.keyField.text.toString()
 
     @Inject
+    @field:Named("second_logger")
+    lateinit var  secondLogger: Logger
+
+    @Inject
     lateinit var viewModelFactory: SecondFragmentViewModelFactory
-    private val viewModel: SecondFragmentViewModel by lazy {
-        ViewModelProvider(
-            this,
-            viewModelFactory
-        )[SecondFragmentViewModel::class.java]
-    }
+    private val viewModel: SecondFragmentViewModel by viewModels {viewModelFactory}
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

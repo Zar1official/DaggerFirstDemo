@@ -24,6 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="120dp"
-        android:text="@string/save_button"/>
+        android:text="@string/get_button"/>
 
 </FrameLayout>
