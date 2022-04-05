@@ -1,23 +1,32 @@
 package ru.zar1official.daggerfirstdemo.presentation.screens
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.zar1official.daggerfirstdemo.R
-import ru.zar1official.daggerfirstdemo.databinding.FragmentSecondBinding
+import androidx.fragment.app.Fragment
+import ru.zar1official.daggerfirstdemo.app.App
+import ru.zar1official.daggerfirstdemo.data.A
+import ru.zar1official.daggerfirstdemo.data.B
 import ru.zar1official.daggerfirstdemo.databinding.FragmentThirdBinding
-import ru.zar1official.daggerfirstdemo.di.data.qualifiers.ThirdLoggerQualifier
-import java.util.logging.Logger
+import ru.zar1official.daggerfirstdemo.util.thirdScreenComponent
 import javax.inject.Inject
-import javax.inject.Qualifier
 
 class ThirdFragment : Fragment() {
 
     private val binding: FragmentThirdBinding get() = _binding!!
     private var _binding: FragmentThirdBinding? = null
-    @Inject @field:ThirdLoggerQualifier lateinit var thirdLogger: Logger
+    @Inject
+    lateinit var a: A
+    @Inject
+    lateinit var b: B
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as App).initThirdScreenComponent()
+        context.thirdScreenComponent?.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
