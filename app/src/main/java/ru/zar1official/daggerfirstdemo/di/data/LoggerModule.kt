@@ -1,7 +1,7 @@
 package ru.zar1official.daggerfirstdemo.di.data
 
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import ru.zar1official.daggerfirstdemo.data.Logger
 import ru.zar1official.daggerfirstdemo.data.LoggerFirstImpl
 import ru.zar1official.daggerfirstdemo.data.LoggerSecondImpl
@@ -10,17 +10,16 @@ import ru.zar1official.daggerfirstdemo.di.data.qualifiers.ThirdLoggerQualifier
 import javax.inject.Named
 
 @Module
-object LoggerModule {
-
+abstract class LoggerModule {
     @Named("first_logger")
-    @Provides
-    fun provideFirstLogger(): Logger = LoggerFirstImpl()
+    @Binds
+    abstract fun bindFirstLogger(logger: LoggerFirstImpl): Logger
 
     @Named("second_logger")
-    @Provides
-    fun provideSecondLogger(): Logger = LoggerSecondImpl()
+    @Binds
+    abstract fun bindSecondLogger(logger: LoggerSecondImpl): Logger
 
     @ThirdLoggerQualifier
-    @Provides
-    fun provideThirdLogger(): Logger = LoggerThirdImpl()
+    @Binds
+    abstract fun bindThirdLogger(logger: LoggerThirdImpl): Logger
 }

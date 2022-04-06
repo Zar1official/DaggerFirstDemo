@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.zar1official.daggerfirstdemo.app.App
-import ru.zar1official.daggerfirstdemo.data.A
-import ru.zar1official.daggerfirstdemo.data.B
+import ru.zar1official.daggerfirstdemo.data.Logger
 import ru.zar1official.daggerfirstdemo.databinding.FragmentThirdBinding
+import ru.zar1official.daggerfirstdemo.di.data.qualifiers.ThirdLoggerQualifier
 import ru.zar1official.daggerfirstdemo.util.thirdScreenComponent
 import javax.inject.Inject
 
@@ -18,9 +18,8 @@ class ThirdFragment : Fragment() {
     private val binding: FragmentThirdBinding get() = _binding!!
     private var _binding: FragmentThirdBinding? = null
     @Inject
-    lateinit var a: A
-    @Inject
-    lateinit var b: B
+    @field:ThirdLoggerQualifier
+    lateinit var logger: Logger
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
