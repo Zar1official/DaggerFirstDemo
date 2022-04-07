@@ -9,7 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import ru.zar1official.daggerfirstdemo.data.logger.Logger
+import ru.zar1official.daggerfirstdemo.data.saver.LocalSaver
+import ru.zar1official.daggerfirstdemo.data.saver.Saver
 import ru.zar1official.daggerfirstdemo.databinding.FragmentSecondBinding
+import ru.zar1official.daggerfirstdemo.di.components.SecondScreenComponent
+import ru.zar1official.daggerfirstdemo.di.components.ThirdScreenComponent
+import ru.zar1official.daggerfirstdemo.di.modules.secondscreen.SecondScreenModule
+import ru.zar1official.daggerfirstdemo.di.modules.thirdscreen.ThirdScreenModule
 import ru.zar1official.daggerfirstdemo.presentation.factories.SecondFragmentViewModelFactory
 import ru.zar1official.daggerfirstdemo.presentation.viewmodels.SecondFragmentViewModel
 import ru.zar1official.daggerfirstdemo.util.appComponent
@@ -17,14 +23,23 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class SecondFragment : Fragment() {
+    private val component: SecondScreenComponent by lazy {
+        requireContext().appComponent.plusSecondScreenComponent(
+            SecondScreenModule()
+        )
+    }
     private val binding: FragmentSecondBinding get() = _binding!!
     private var _binding: FragmentSecondBinding? = null
-    private val key
-        get() = binding.keyField.text.toString()
 
     @Inject
     @field:Named("second_logger")
     lateinit var  secondLogger: Logger
+
+    @Inject
+    lateinit var localSaver: LocalSaver
+
+    @Inject
+    lateinit var saver: Saver
 
     @Inject
     lateinit var viewModelFactory: SecondFragmentViewModelFactory
@@ -32,7 +47,7 @@ class SecondFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.inject(this)
+        component.inject(this)
     }
 
 
@@ -41,13 +56,15 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSecondBinding.inflate(layoutInflater, container, false).apply {
-            saveButton.setOnClickListener {
-                viewModel.onReadData(key)
+            getButton.setOnClickListener{
+                Toast.makeText(context, saver.read(), Toast.LENGTH_SHORT).show()
+            }
+            getLocallyButton.setOnClickListener{
+                Toast.makeText(context, localSaver.read(), Toast.LENGTH_SHORT).show()
             }
             viewModel.data.observe(viewLifecycleOwner) {
                 Toast.makeText(context, it, Toast.LENGTH_LONG).show()
             }
-            viewModel.data
         }
         return binding.root
     }

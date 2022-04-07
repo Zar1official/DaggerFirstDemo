@@ -15,8 +15,6 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class, DataModule::class])
 interface AppComponent {
     fun inject(activity: MainActivity)
-    fun inject(firstFragment: FirstFragment)
-    fun inject(secondFragment: SecondFragment)
     fun plusFirstScreenComponent(firstScreenModule: FirstScreenModule): FirstScreenComponent
     fun plusSecondScreenComponent(secondScreenModule: SecondScreenModule): SecondScreenComponent
     fun plusThirdScreenComponent(thirdScreenModule: ThirdScreenModule): ThirdScreenComponent

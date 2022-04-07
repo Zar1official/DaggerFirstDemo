@@ -8,7 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import ru.zar1official.daggerfirstdemo.data.logger.Logger
+import ru.zar1official.daggerfirstdemo.data.saver.LocalSaver
+import ru.zar1official.daggerfirstdemo.data.saver.Saver
 import ru.zar1official.daggerfirstdemo.databinding.FragmentFirstBinding
+import ru.zar1official.daggerfirstdemo.di.components.FirstScreenComponent
+import ru.zar1official.daggerfirstdemo.di.modules.firstscreen.FirstScreenModule
 import ru.zar1official.daggerfirstdemo.presentation.factories.FirstFragmentViewModelFactory
 import ru.zar1official.daggerfirstdemo.presentation.viewmodels.FirstFragmentViewModel
 import ru.zar1official.daggerfirstdemo.util.appComponent
@@ -17,23 +21,36 @@ import javax.inject.Named
 
 class FirstFragment : Fragment() {
 
+    private val component: FirstScreenComponent by lazy {
+        requireContext().appComponent.plusFirstScreenComponent(
+            FirstScreenModule()
+        )
+    }
     private val binding: FragmentFirstBinding get() = _binding!!
     private var _binding: FragmentFirstBinding? = null
-    private val key
-        get() = binding.keyField.text.toString()
-    private val value
-        get() = binding.valueField.text.toString()
+    private val save
+        get() = binding.saveField.text.toString()
+    private val saveLocally
+        get() = binding.saveLocallyField.text.toString()
+
     @Inject
     @field:Named("first_logger")
-    lateinit var  firstLogger: Logger
+    lateinit var firstLogger: Logger
 
     @Inject
     lateinit var viewModelFactory: FirstFragmentViewModelFactory
+
+    @Inject
+    lateinit var localSaver: LocalSaver
+
+    @Inject
+    lateinit var saver: Saver
+
     private val viewModel: FirstFragmentViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.inject(this)
+        component.inject(this)
     }
 
     override fun onCreateView(
@@ -42,7 +59,11 @@ class FirstFragment : Fragment() {
     ): View {
         _binding = FragmentFirstBinding.inflate(layoutInflater, container, false).apply {
             saveButton.setOnClickListener {
-                viewModel.onSaveData(key, value)
+                saver.save(data = save)
+            }
+
+            saveLocallyButton.setOnClickListener {
+                localSaver.saveLocally(data = saveLocally)
             }
         }
         return binding.root

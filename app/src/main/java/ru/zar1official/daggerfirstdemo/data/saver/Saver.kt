@@ -1,6 +1,6 @@
 package ru.zar1official.daggerfirstdemo.data.saver
 
-interface LocalSaver {
-    fun saveLocally(data: String)
+interface Saver {
+    fun save(data: String)
     fun read(): String
 }
