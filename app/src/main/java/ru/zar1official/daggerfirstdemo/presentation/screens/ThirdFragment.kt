@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.zar1official.daggerfirstdemo.app.App
-import ru.zar1official.daggerfirstdemo.data.Logger
+import ru.zar1official.daggerfirstdemo.data.logger.Logger
 import ru.zar1official.daggerfirstdemo.databinding.FragmentThirdBinding
-import ru.zar1official.daggerfirstdemo.di.data.qualifiers.ThirdLoggerQualifier
+import ru.zar1official.daggerfirstdemo.di.qualifiers.ThirdLoggerQualifier
 import ru.zar1official.daggerfirstdemo.util.thirdScreenComponent
 import javax.inject.Inject
 

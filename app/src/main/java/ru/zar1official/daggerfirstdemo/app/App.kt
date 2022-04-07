@@ -1,17 +1,20 @@
 package ru.zar1official.daggerfirstdemo.app
 
 import android.app.Application
-import ru.zar1official.daggerfirstdemo.di.app.AppModule
-import ru.zar1official.daggerfirstdemo.di.app.ThirdScreenModule
-import ru.zar1official.daggerfirstdemo.di.components.AppComponent
-import ru.zar1official.daggerfirstdemo.di.components.DaggerAppComponent
-import ru.zar1official.daggerfirstdemo.di.components.ThirdScreenComponent
+import ru.zar1official.daggerfirstdemo.di.components.*
+import ru.zar1official.daggerfirstdemo.di.modules.app.AppModule
+import ru.zar1official.daggerfirstdemo.di.modules.firstscreen.FirstScreenModule
+import ru.zar1official.daggerfirstdemo.di.modules.secondscreen.SecondScreenModule
+import ru.zar1official.daggerfirstdemo.di.modules.thirdscreen.ThirdScreenModule
 
 class App : Application() {
     lateinit var appComponent: AppComponent
         private set
     var thirdScreenComponent: ThirdScreenComponent? = null
         private set
+    var firstScreenComponent: FirstScreenComponent? = null
+        private set
+    var secondScreenComponent: SecondScreenComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -19,8 +22,20 @@ class App : Application() {
     }
 
     fun initThirdScreenComponent() {
-        if(thirdScreenComponent == null){
+        if (thirdScreenComponent == null) {
             thirdScreenComponent = appComponent.plusThirdScreenComponent(ThirdScreenModule())
+        }
+    }
+
+    fun initFirstScreenComponent() {
+        if (firstScreenComponent == null) {
+            firstScreenComponent = appComponent.plusFirstScreenComponent(FirstScreenModule())
+        }
+    }
+
+    fun initSecondScreenComponent() {
+        if (secondScreenComponent == null) {
+            secondScreenComponent = appComponent.plusSecondScreenComponent(SecondScreenModule())
         }
     }
 

@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import ru.zar1official.daggerfirstdemo.data.Logger
+import ru.zar1official.daggerfirstdemo.data.logger.Logger
 import ru.zar1official.daggerfirstdemo.databinding.FragmentFirstBinding
 import ru.zar1official.daggerfirstdemo.presentation.factories.FirstFragmentViewModelFactory
 import ru.zar1official.daggerfirstdemo.presentation.viewmodels.FirstFragmentViewModel
